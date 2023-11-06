@@ -1,27 +1,51 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8" />
-    <title>My test page</title>
-    <link href="styles/style.css" rel="stylesheet" type="text/css" />
-  </head>
-  <body>
-    <font face="Arial" color="#000000" size="24">Mokey</font>
-    <img src="images/Mokey_the_MOUSE.png" alt="My test image" />
-    <font face="Arial" color="#000000" size="24">Grooby</font>
-    <img src="images/Grooby.png" alt="My test image" />
-    <font face="Arial" color="#000000" size="24">Dilan</font>
-    <img src="images/Dilan.png" alt="My test image" width=426 height=516 />
-    <a href="index.html">Infinite Mokey loop</a>
-  </body>
+<head>
+    <title>LAB 4 TEST</title>
+    <link href="style.css" rel="stylesheet" type="text/css" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <h1>LAB 4 TEST</h1>
+    <button type="button" id="FadeBtn1">Click</button>
+    <button type="button" id="FadeBtn2">Click</button>
+    <div id="data-container">
+        <ul id="user-list">
+            <!-- 這裡將顯示 JSON 數據 -->
+        </ul>
+        <img id="image" src="Mokey_the_MOUSE.png" alt="My test image" />
+    </div>
+    <script>
+        // 使用 jQuery 的 Ajax 方法從 JSON API 獲取數據
+        $(function ()
+        {
+            $('#user-list').hide();
+            $('#image').hide();
+            $('#FadeBtn1').click(function()
+            {
+                $('#user-list').fadeToggle();
+            })
+            $('#FadeBtn2').click(function()
+            {
+                $('#image').fadeToggle();
+            })
+            $.ajax({
+                url: 'https://jsonplaceholder.typicode.com/users', // 這裡替換成你的 JSON API URL
+                method: 'GET',
+                dataType: 'json',
+                success: function(data) {
+                    // 成功處理 JSON 數據
+                    var userList = $('#user-list');
+                    $.each(data, function(index, user) {
+                        userList.append('<li>Name: ' + user.name + ', Email: ' + user.email + '</li>');
+                    });
+                },
+                error: function(xhr, status, error) {
+                    // 處理錯誤
+                    console.log('發生錯誤：' + error);
+                }
+            });
+        });
+    </script>
+</body>
 </html>
-
-<p>Merry Christmas</p>
-
-<ul>
-  <li>Mokey</li>
-  <li>Grooby</li>
-  <li>Dilan</li>
-</ul>
-
-<p>Krima</p>
